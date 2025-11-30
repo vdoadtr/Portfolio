@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakibul Malithya - Home</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font and base styling */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+            color: #1f2937;
+        }
+        .nav-link.active {
+            font-weight: 700;
+            color: #10b981; /* Emerald 500 */
+            border-bottom: 2px solid #10b981;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header & Navigation Bar -->
+    <header class="shadow-lg sticky top-0 z-10 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Home Link (Aligned Left) -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold text-gray-800 tracking-wider hover:text-emerald-600 transition duration-150 nav-link active">Rakibul Malithya</a>
+                </div>
+                <!-- Navigation Links (Aligned Right) -->
+                <nav class="space-x-6 flex">
+                    <a href="about.html" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-150 p-2">About</a>
+                    <a href="work.html" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-150 p-2">My Work</a>
+                    <a href="contact.html" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-150 p-2">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white p-12 md:p-20 rounded-2xl shadow-2xl flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-3/5">
+                <p class="text-xl mb-3">Hello, I am</p>
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight">RAKIBUL MALITHYA</h1>
+                <h2 class="text-2xl md:text-3xl font-light mb-8 opacity-90">Video Editor & Media Professional</h2>
+                <p class="text-lg opacity-90 mb-10">I blend creativity with journalistic integrity to tell compelling stories. Explore my journey in visual communication and journalism.</p>
+                <a href="work.html" class="inline-block bg-white text-emerald-700 font-semibold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 shadow-xl text-lg">View My Portfolio</a>
+            </div>
+            <div class="md:w-1/5 mt-10 md:mt-0 flex justify-center">
+                <!-- Placeholder for Profile Image -->
+                <img src="https://placehold.co/220x220/10b981/ffffff?text=Rakibul+M" alt="Profile Picture Placeholder" class="rounded-full border-8 border-emerald-400 shadow-2xl object-cover">
+            </div>
+        </section>
+
+        <!-- Services/Intro Cards -->
+        <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-500 mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-4 10-4 10 4 10 4-3 4-10 4-10-4-10-4z"/><circle cx="12" cy="12" r="3"/></svg>
+                <h3 class="text-xl font-semibold mb-3">Video Editing</h3>
+                <p class="text-gray-600">Expertise in Adobe Premiere Pro and After Effects for engaging news and feature content.</p>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-500 mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <h3 class="text-xl font-semibold mb-3">Journalism & Media</h3>
+                <p class="text-gray-600">Pursuing MAJMC, focusing on reporting, editing, and new media trends.</p>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-500 mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                <h3 class="text-xl font-semibold mb-3">Creative Storytelling</h3>
+                <p class="text-gray-600">Passion for concept development, including short films like "Rules" to capture complex ideas.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>&copy; <span id="currentYear"></span> Rakibul Malithya | All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

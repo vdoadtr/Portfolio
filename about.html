@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakibul Malithya - About Me</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fc; color: #1f2937; }
+        .nav-link.active { font-weight: 700; color: #10b981; border-bottom: 2px solid #10b981; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header & Navigation Bar -->
+    <header class="shadow-lg sticky top-0 z-10 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Home Link (Aligned Left) -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold text-gray-800 tracking-wider hover:text-emerald-600 transition duration-150">Rakibul Malithya</a>
+                </div>
+                <!-- Navigation Links (Aligned Right) -->
+                <nav class="space-x-6 flex">
+                    <!-- 'active' class on About link for this page -->
+                    <a href="about.html" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-150 p-2 active">About</a>
+                    <a href="work.html" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-150 p-2">My Work</a>
+                    <a href="contact.html" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-150 p-2">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <section class="bg-white p-8 md:p-12 rounded-2xl shadow-xl">
+            <h1 class="text-4xl font-bold mb-8 text-gray-800 border-b-4 border-emerald-500 pb-3">About Rakibul</h1>
+            <div class="grid md:grid-cols-3 gap-12">
+                
+                <div class="md:col-span-2 space-y-8 text-gray-700">
+                    <p class="text-xl leading-relaxed">I am a professional Video Editor currently pursuing my Master's degree in Journalism and Mass Communication (MAJMC) at Harichand Guruchand University. My passion lies in visual storytelling and transforming complex information into engaging video content.</p>
+
+                    <!-- Experience -->
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-emerald-600">Professional Journey</h2>
+                        <ul class="space-y-4">
+                            <li class="border-l-4 border-emerald-500 pl-4">
+                                <p class="font-semibold text-lg">Video Editor, Our Voice & NILNOD INTERNATIONAL TRAVELS</p>
+                                <p class="text-sm text-gray-500">May 2025 – Present</p>
+                                <p class="text-sm">Handling visual content for both a news channel and an international travel company, ensuring high-quality, relevant media production.</p>
+                            </li>
+                            <li class="border-l-4 border-emerald-300 pl-4">
+                                <p class="font-semibold text-lg">Video Editor, Tara TV</p>
+                                <p class="text-sm text-gray-500">June 2024 – November 2024 (6 Months)</p>
+                            </li>
+                            <li class="border-l-4 border-emerald-300 pl-4">
+                                <p class="font-semibold text-lg">Video Editor, TDN Bangla</p>
+                                <p class="text-sm text-gray-500">November 2022 – April 2024 (1.5 Years)</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Education -->
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 text-emerald-600">Education</h2>
+                        <ul class="space-y-3">
+                            <li><span class="font-semibold">M.A. in Journalism and Mass Communication:</span> Harichand Guruchand University (Expected 2027)</li>
+                            <li><span class="font-semibold">B.Voc in Broadcast Journalism:</span> 88% Marks (Graduated)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Skills Sidebar -->
+                <div class="space-y-6">
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-inner">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Core Competencies</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-emerald-100 text-emerald-800 text-sm font-medium px-3 py-1 rounded-full">Adobe Premiere Pro</span>
+                            <span class="bg-emerald-100 text-emerald-800 text-sm font-medium px-3 py-1 rounded-full">Adobe After Effects</span>
+                            <span class="bg-emerald-100 text-emerald-800 text-sm font-medium px-3 py-1 rounded-full">Content Strategy</span>
+                            <span class="bg-emerald-100 text-emerald-800 text-sm font-medium px-3 py-1 rounded-full">Broadcast Journalism</span>
+                            <span class="bg-emerald-100 text-emerald-800 text-sm font-medium px-3 py-1 rounded-full">Photography & Lighting</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 bg-gray-50 rounded-xl shadow-inner">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Fun Fact</h3>
+                        <p class="text-gray-600">Beyond the edit suite, I'm an expert in making perfectly puffed and soft roti! I've handled all my own cooking, mastering most Bengali dishes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>&copy; <span id="currentYear"></span> Rakibul Malithya | All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
