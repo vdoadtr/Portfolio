@@ -4,90 +4,566 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rakibul Malithya - Home</title>
+    <!-- Favicon (Logo) -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/pw/AP1GczPmjoIECTGEfcWkaRlF8HQMVrke6cR-uwCwPh2fKQ1udF_S9AKbrBYddkdrKIvePmjo-WjpcVIaH6ydMkgkyicUcG_WFTYq3RuB0Rw8VEyBvcxkWmOqAt8POWdC1q_MdHKgkyicUcG_WFTYq3RuB0Rw8VEyBvcxkWmOqAt8POWdC1q_MdHKg9_p7evmf23hJWsNU4V9_=w919-h919-s-no-gm?authuser=0">
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- YouTube IFrame Player API -->
+    <script async src="https://www.youtube.com/iframe_api"></script>
+
     <style>
-        /* Custom font and base styling */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        /* Base Styles for Dark Theme (Rakibul's portfolio style) */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7f9fc;
-            color: #1f2937;
+            background-color: #0f172a; /* Slate 900 */
+            color: #f1f5f9; /* Slate 100 */
         }
+        
+        /* --- Navigation Styles --- */
         .nav-link.active {
             font-weight: 700;
-            color: #10b981; /* Emerald 500 */
-            border-bottom: 2px solid #10b981;
+            color: #38bdf8; /* Sky 400 */
+            border-bottom: 2px solid #38bdf8;
+        }
+        
+        /* Video Container - Aspect Ratio for Main Video */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            background-color: #1e293b; /* Slate 800 */
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Description Card - Adapted for Dark Theme */
+        .description-card {
+            background-color: #1e293b; /* Slate 800 */
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        /* --- Custom 3D Showreel Carousel Styles --- */
+        .carousel-wrapper {
+            position: relative;
+            height: 240px; /* Mobile height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+            perspective: 1000px;
+        }
+        @media (min-width: 768px) {
+            .carousel-wrapper {
+                height: 350px; /* Desktop height */
+            }
+        }
+        
+        .c-card {
+            position: absolute;
+            /* width and height relative to the wrapper */
+            width: 75%; /* More videos visible on side */
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            /* Smooth transition for movement, size, and opacity */
+            transition: all 0.8s cubic-bezier(0.4, 0.0, 0.2, 1); 
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+        }
+        @media (min-width: 768px) {
+            .c-card {
+                width: 55%; 
+                height: 260px;
+            }
+        }
+
+        /* Carousel Positions */
+        /* Middle (Active) Item: Big and Prominent */
+        .c-center {
+            z-index: 30;
+            transform: translateX(0) scale(1.15); /* Slightly bigger than previous JAGARAN style */
+            opacity: 1;
+            border: 4px solid #38bdf8; /* Sky 400 accent */
+            box-shadow: 0 20px 50px rgba(56, 189, 248, 0.4); 
+        }
+        
+        /* Left Item: Smaller, less opaque */
+        .c-left {
+            z-index: 20;
+            transform: translateX(-40%) scale(0.85); /* Closer view, but smaller */
+            opacity: 0.6;
+            filter: grayscale(50%);
+        }
+        
+        /* Right Item: Smaller, less opaque */
+        .c-right {
+            z-index: 20;
+            transform: translateX(40%) scale(0.85); /* Closer view, but smaller */
+            opacity: 0.6;
+            filter: grayscale(50%);
+        }
+        
+        /* Hidden Items (Out of view) */
+        .c-hidden-left {
+            z-index: 10;
+            transform: translateX(-150%) scale(0.6);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .c-hidden-right {
+            z-index: 10;
+            transform: translateX(150%) scale(0.6);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Play Icon Overlay */
+        .play-overlay {
+            background: rgba(56, 189, 248, 0.85); /* Sky 400 tint */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: scale(0.8);
+        }
+        .c-center:hover .play-overlay {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        .c-center .play-overlay {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .c-card:not(.c-center) .play-overlay {
+            opacity: 0;
+        }
+
+        /* Modal Styles (Adjusted for Dark Theme) */
+        .video-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .video-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal-content {
+            width: 90%;
+            max-width: 900px;
+            aspect-ratio: 16/9;
+            background: black;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        /* --- General Layout & Text Colors --- */
+        .text-gray-700 { color: #cbd5e1; /* Slate 300 */ }
+        .text-gray-800 { color: #f1f5f9; /* Slate 100 */ }
+        .text-gray-500 { color: #94a3b8; /* Slate 400 */ }
+        .bg-white { background-color: #1e293b; }
+        .shadow-xl { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.1); }
+        .border-t { border-color: #334155; } /* Slate 700 */
+        
+        .ticket-button-cta {
+            background: linear-gradient(90deg, #38bdf8 0%, #0ea5e9 100%); /* Sky Blue Gradient */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .ticket-button-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.5);
+        }
+        
+        .highlights-collapse {
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out; 
+        }
+
+        /* Note: Original Banner Image URLs removed as they load a different site's banner */
+        .banner-image {
+            background-color: #1e293b; /* Placeholder color */
+            display: none; /* Hide for this portfolio (use the Hero section instead) */
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen">
 
-    <!-- Header & Navigation Bar -->
-    <header class="shadow-lg sticky top-0 z-10 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo/Home Link (Aligned Left) -->
-                <div class="flex-shrink-0">
-                    <a href="index.html" class="text-2xl font-bold text-gray-800 tracking-wider hover:text-emerald-600 transition duration-150 nav-link active">Rakibul Malithya</a>
+    <!-- Header -->
+    <header class="w-full flex justify-center sticky top-0 z-50 bg-slate-900 shadow-xl border-b border-sky-500/30">
+        <div class="container mx-auto px-4 md:px-8 flex justify-between items-center py-4 md:py-6">
+            
+            <!-- Left Group -->
+            <div class="flex items-center">
+                <div class="text-3xl font-extrabold text-sky-400 tracking-wider">
+                    <a href="index.html">RAKIBUL MALIHYA</a>
                 </div>
-                <!-- Navigation Links (Aligned Right) -->
-                <nav class="space-x-6 flex">
-                    <a href="about.html" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-150 p-2">About</a>
-                    <a href="work.html" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-150 p-2">My Work</a>
-                    <a href="contact.html" class="nav-link text-gray-600 hover:text-emerald-500 transition duration-150 p-2">Contact</a>
-                </nav>
             </div>
+            
+            <!-- Right Group -->
+            <nav class="flex space-x-4 font-semibold">
+                <a href="#" class="nav-link active text-sm md:text-base px-2 py-1 transition duration-300">Home</a>
+                <a href="about.html" class="nav-link text-slate-400 hover:text-sky-400 text-sm md:text-base px-2 py-1 transition duration-300">About</a>
+                <a href="work.html" class="nav-link text-slate-400 hover:text-sky-400 text-sm md:text-base px-2 py-1 transition duration-300">My Work</a>
+                <a href="contact.html" class="nav-link text-slate-400 hover:text-sky-400 text-sm md:text-base px-2 py-1 transition duration-300">Contact</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <!-- Main Content -->
+    <div id="app-content" class="container mx-auto p-4 md:p-8 pt-8">
 
-        <!-- Hero Section -->
-        <section class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white p-12 md:p-20 rounded-2xl shadow-2xl flex flex-col md:flex-row items-center justify-between">
+        <!-- Hero Section (Banner Replacement) -->
+        <section class="bg-slate-800 border border-slate-700 p-8 md:p-16 rounded-xl shadow-2xl flex flex-col md:flex-row items-center justify-between transition duration-500 hover:shadow-sky-500/40 mb-16">
             <div class="md:w-3/5">
-                <p class="text-xl mb-3">Hello, I am</p>
-                <h1 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight">RAKIBUL MALITHYA</h1>
-                <h2 class="text-2xl md:text-3xl font-light mb-8 opacity-90">Video Editor & Media Professional</h2>
-                <p class="text-lg opacity-90 mb-10">I blend creativity with journalistic integrity to tell compelling stories. Explore my journey in visual communication and journalism.</p>
-                <a href="work.html" class="inline-block bg-white text-emerald-700 font-semibold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 shadow-xl text-lg">View My Portfolio</a>
+                <p class="text-xl mb-3 text-sky-400">Video Editor & Creative Professional</p>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight text-white">UPDATED SHOWREEL</h1>
+                <p class="text-lg text-slate-400 mb-8">
+                    Discover my latest work in short films, motion graphics, and narrative editing. 
+                    This selection cycles every 5 seconds, showcasing my diverse skills.
+                </p>
+                <!-- CTA Button for Contact/Work -->
+                <button class="ticket-button-cta text-white font-bold text-lg px-8 py-3 rounded-full shadow-lg transition duration-300"
+                    onclick="window.location.href='contact.html'">
+                    Let's Connect
+                </button>
             </div>
-            <div class="md:w-1/5 mt-10 md:mt-0 flex justify-center">
-                <!-- Placeholder for Profile Image -->
-                <img src="https://placehold.co/220x220/10b981/ffffff?text=Rakibul+M" alt="Profile Picture Placeholder" class="rounded-full border-8 border-emerald-400 shadow-2xl object-cover">
-            </div>
-        </section>
-
-        <!-- Services/Intro Cards -->
-        <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-500 mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-4 10-4 10 4 10 4-3 4-10 4-10-4-10-4z"/><circle cx="12" cy="12" r="3"/></svg>
-                <h3 class="text-xl font-semibold mb-3">Video Editing</h3>
-                <p class="text-gray-600">Expertise in Adobe Premiere Pro and After Effects for engaging news and feature content.</p>
-            </div>
-            <div class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-500 mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                <h3 class="text-xl font-semibold mb-3">Journalism & Media</h3>
-                <p class="text-gray-600">Pursuing MAJMC, focusing on reporting, editing, and new media trends.</p>
-            </div>
-            <div class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-emerald-500 mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-                <h3 class="text-xl font-semibold mb-3">Creative Storytelling</h3>
-                <p class="text-gray-600">Passion for concept development, including short films like "Rules" to capture complex ideas.</p>
+            <div class="md:w-1/5 mt-10 md:mt-0 flex justify-center relative">
+                <!-- Profile Image placeholder -->
+                <div class="relative p-1 bg-slate-700 rounded-full shadow-lg border border-sky-500">
+                    <!-- Image URL from user's CV upload -->
+                    <img src="https://placehold.co/220x220/1f2937/ffffff?text=R+M" onerror="this.onerror=null;this.src='https://placehold.co/220x220/1f2937/ffffff?text=R+M';" alt="Profile Picture" class="rounded-full w-56 h-56 object-cover border-4 border-slate-800">
+                </div>
             </div>
         </section>
 
-    </main>
+
+        <!-- SHOWREEL CAROUSEL SECTION -->
+        <section id="playlist-section" class="py-10 px-4 sm:px-8 bg-slate-800 rounded-xl shadow-xl max-w-6xl mx-auto overflow-hidden border border-slate-700">
+            <h2 class="text-3xl font-bold text-sky-400 mb-8 text-center">My Updated Showreel Playlist</h2>
+            
+            <!-- Carousel Container -->
+            <div id="custom-carousel" class="carousel-wrapper">
+                <div class="text-center text-slate-400">Loading Videos...</div>
+            </div>
+            
+            <!-- Note: The original 'JAGARAN Playlist' features were removed as they are not relevant to a portfolio -->
+        </section>
+
+        <!-- Placeholder for other sections (e.g., Highlights, Description) -->
+        <!-- Since the original file contained them, keeping the structure -->
+        <section id="description-section" class="max-w-4xl mx-auto mt-12">
+            <h2 class="text-3xl font-bold text-slate-300 mb-4 text-center">My Editing Philosophy</h2>
+            <div class="description-card text-slate-400">
+                <p class="mb-4">
+                    As a video editor, my goal is to transform raw footage into compelling stories. My focus is on rhythm, sound design, and color grading to create maximum emotional impact.
+                </p>
+                <p class="text-center mt-6 text-sky-400 font-semibold">
+                    I believe in the power of visual storytelling to communicate and inspire.
+                </p>
+            </div>
+        </section>
+
+        <!-- Social Media Links (Re-styled for Rakibul's theme) -->
+        <section id="social-media-links" class="max-w-4xl mx-auto mt-12">
+            <div class="description-card p-6 flex flex-col items-center border border-slate-700">
+                <h3 class="text-xl font-bold text-slate-300 mb-6 text-center">Connect with me</h3>
+                
+                <div class="flex flex-wrap justify-center gap-6">
+                    <!-- YouTube Link (Example/Placeholder) -->
+                    <a href="#" target="_blank" aria-label="YouTube Link" class="social-icon-button bg-red-800 hover:bg-red-700 text-white shadow-lg">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 5H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V7a2 2 0 00-2-2zm-9 11V8l6 4-6 4z"/>
+                        </svg>
+                    </a>
+                    
+                    <!-- Instagram Link (Example/Placeholder) -->
+                    <a href="#" target="_blank" aria-label="Instagram Link" class="social-icon-button bg-pink-700 hover:bg-pink-600 text-white shadow-lg">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    
+                    <!-- Facebook Link (Example/Placeholder) -->
+                    <a href="#" target="_blank" aria-label="Facebook Link" class="social-icon-button bg-blue-700 hover:bg-blue-600 text-white shadow-lg">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeVideoModal()">&times;</div>
+            <div id="modalPlayerContainer" class="w-full h-full"></div>
+        </div>
+    </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
-            <p>&copy; <span id="currentYear"></span> Rakibul Malithya | All rights reserved.</p>
-        </div>
+    <footer class="bg-slate-900 text-slate-400 text-center py-6 mt-12 border-t border-sky-500/30">
+        <p class="text-sm">© 2025 Rakibul Malithya | Video Editor Portfolio</p>
     </footer>
+
     <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // Your specific showreel playlist ID
+        const PLAYLIST_ID = "PL9MX68d9XxCeoK8gVDDlHv3eBVOkwz2Oi"; 
+        
+        let dataPlayer; // Hidden player to fetch data
+        let modalPlayer; // Player inside modal
+        let carouselInterval;
+        let playlistVideoIds = [];
+        let currentIndex = 0;
+        
+        // --- API Ready ---
+        window.onYouTubeIframeAPIReady = function() {
+            // Initialize a hidden player just to fetch the playlist data
+            const dummyDiv = document.createElement('div');
+            dummyDiv.id = 'dummyPlayer';
+            dummyDiv.style.display = 'none';
+            document.body.appendChild(dummyDiv);
+
+            dataPlayer = new YT.Player('dummyPlayer', {
+                height: '0',
+                width: '0',
+                playerVars: {
+                    'listType': 'playlist',
+                    'list': PLAYLIST_ID
+                },
+                events: {
+                    'onReady': onDataPlayerReady
+                }
+            });
+        }
+
+        function onDataPlayerReady(event) {
+            // Fetch playlist IDs
+            // Note: getPlaylist() might take a moment
+            setTimeout(() => {
+                const rawIds = dataPlayer.getPlaylist();
+                if (rawIds && rawIds.length > 0) {
+                    // Use original order as videos are added sequentially
+                    playlistVideoIds = [...rawIds]; 
+                    buildCarousel(playlistVideoIds);
+                } else {
+                    document.getElementById('custom-carousel').innerHTML = '<p class="text-red-400">No videos found in the playlist.</p>';
+                }
+            }, 1000); // Short delay to ensure data is loaded
+        }
+
+        // --- Carousel Logic ---
+        function buildCarousel(ids) {
+            const container = document.getElementById('custom-carousel');
+            container.innerHTML = ''; // Clear loading text
+
+            // Create card elements
+            ids.forEach((id, index) => {
+                const card = document.createElement('div');
+                card.className = 'c-card';
+                card.id = `card-${index}`;
+                // YouTube Thumbnail URL (using hqdefault for high quality)
+                card.style.backgroundImage = `url('https://i.ytimg.com/vi/${id}/hqdefault.jpg')`;
+                
+                // Play Icon Overlay
+                const playIcon = document.createElement('div');
+                playIcon.className = 'play-overlay';
+                playIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>';
+                card.appendChild(playIcon);
+
+                // Click event - Only center card is clickable for playback
+                card.onclick = () => {
+                    // Check if this card is currently in the center position (index 0 relative to current view)
+                    if (card.classList.contains('c-center')) {
+                        openVideoModal(id);
+                    } else {
+                         // Click on a side card moves it to the center immediately
+                        const clickedIndex = ids.indexOf(id);
+                        // Calculate how many steps to move to bring the clicked item to the center
+                        // The 'center' item is always currentIndex
+                        
+                        // If it's the item to the right (diff = 1), move 1 step
+                        // If it's the item to the left (diff = total-1), move 1 step backwards (or total-1 forward)
+                        
+                        let steps = (clickedIndex - currentIndex + ids.length) % ids.length;
+                        if (steps > ids.length / 2) {
+                            steps = steps - ids.length; // move backwards
+                        }
+                        
+                        // For a simple 3-item visible carousel, we only care about 1 step right (1) or 1 step left (total-1)
+                        if (steps === 1) {
+                            currentIndex = clickedIndex;
+                            updateCarouselView();
+                            // Reset interval
+                            clearInterval(carouselInterval);
+                            startLoop();
+                        } else if (steps === -1 || steps === ids.length - 1) {
+                            currentIndex = clickedIndex;
+                            updateCarouselView();
+                            // Reset interval
+                            clearInterval(carouselInterval);
+                            startLoop();
+                        }
+                    }
+                };
+
+                container.appendChild(card);
+            });
+
+            updateCarouselView();
+            startLoop();
+        }
+
+        function updateCarouselView() {
+            const total = playlistVideoIds.length;
+            if (total === 0) return;
+
+            playlistVideoIds.forEach((id, i) => {
+                const card = document.getElementById(`card-${i}`);
+                if (!card) return;
+
+                // Reset classes
+                card.className = 'c-card';
+
+                // Calculate relative position based on the circular array
+                // diff = 0 -> Center
+                // diff = 1 -> Right
+                // diff = total-1 -> Left
+                
+                let diff = (i - currentIndex + total) % total; 
+                
+                if (diff === 0) {
+                    card.classList.add('c-center');
+                } else if (diff === 1) {
+                    card.classList.add('c-right');
+                } else if (diff === total - 1) {
+                    card.classList.add('c-left');
+                } else {
+                    // Hidden items
+                    if (diff < total / 2) {
+                        card.classList.add('c-hidden-right');
+                    } else {
+                        card.classList.add('c-hidden-left');
+                    }
+                }
+            });
+        }
+
+        // Automatic Carousel movement (5 seconds)
+        function startLoop() {
+            if (carouselInterval) clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => {
+                // Move one step right (the item to the right moves to the center)
+                // This is equivalent to incrementing currentIndex
+                currentIndex = (currentIndex + 1) % playlistVideoIds.length;
+                updateCarouselView();
+            }, 5000); // 5 seconds as requested
+        }
+
+        function stopLoop() {
+            if (carouselInterval) clearInterval(carouselInterval);
+        }
+
+        // --- Modal Player Logic ---
+        function openVideoModal(videoId) {
+            stopLoop(); // Stop sliding while watching
+            const modal = document.getElementById('videoModal');
+            modal.classList.add('active');
+
+            if (modalPlayer) {
+                // If player exists, just load the new video and play
+                modalPlayer.loadVideoById(videoId, 0); 
+            } else {
+                // Create player for the first time
+                modalPlayer = new YT.Player('modalPlayerContainer', {
+                    height: '100%',
+                    width: '100%',
+                    videoId: videoId,
+                    playerVars: {
+                        'autoplay': 1,
+                        'rel': 0, // Disable related videos
+                        'modestbranding': 1, // Minimize YouTube logo
+                        'controls': 1 // Show controls
+                    }
+                });
+            }
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.remove('active');
+            if (modalPlayer && typeof modalPlayer.stopVideo === 'function') {
+                modalPlayer.stopVideo(); // Stop video playback
+            }
+            startLoop(); // Resume sliding
+        }
+
+        // Global Initialization
+        window.addEventListener('load', () => {
+            // Initialize Lucide icons if present
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            // The original highlights and more sections are not needed for this portfolio
+            // loadHighlights();
+            // loadMoreSection(); 
+        });
+
+        // Close modal on outside click
+        document.getElementById('videoModal').addEventListener('click', (e) => {
+            if (e.target.id === 'videoModal') closeVideoModal();
+        });
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
     </script>
 </body>
 </html>
