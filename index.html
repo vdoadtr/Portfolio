@@ -1,105 +1,263 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VDO ADTR - Rakibul Malithya | Portfolio</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1a1a1a; }
-        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
-    </style>
-</head>
-<body class="bg-gray-950 text-gray-100 min-h-screen flex flex-col">
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, User, Code, GraduationCap, Camera, Youtube, Smartphone } from 'lucide-react';
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 w-full bg-gray-900/90 backdrop-blur-md border-b border-gray-800 z-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0 cursor-pointer">
-                    <a href="index.html" class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">VDO ADTR</a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="index.html" class="hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-white bg-gray-800">Home</a>
-                        <a href="about.html" class="hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-300">About</a>
-                        <a href="project.html" class="hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-300">Project</a>
-                        <a href="contact.html" class="hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-300">Contact</a>
-                    </div>
-                </div>
-                <div class="-mr-2 flex md:hidden">
-                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
-                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 border-b border-gray-800">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="index.html" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white bg-gray-800">Home</a>
-                <a href="about.html" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">About</a>
-                <a href="project.html" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Project</a>
-                <a href="contact.html" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700">Contact</a>
-            </div>
-        </div>
-    </nav>
+const App = () => {
+  // Video data with IDs for display
+  const videos = [
+    { id: '6d9bzUnskKI', title: 'Work 01' },
+    { id: 'Vcbch2dCl98', title: 'Work 02' },
+    { id: 'Q2y8drU8t38', title: 'Work 03' },
+    { id: 'S455i-V3qSc', title: 'Work 04' },
+    { id: 'LRA89U2Lppc', title: 'Work 05' },
+    { id: 'TuR3FKJiwSY', title: 'Work 06' },
+    { id: 'bHpi0m4H8n8', title: 'Work 07' },
+    { id: 'CYyJA54YZzY', title: 'Work 08' },
+    { id: 'Qymdg4iVWnc', title: 'Work 09' },
+    { id: '1XNmjKr-dBs', title: 'Work 10' },
+    { id: 'QDKMYwzmc6c', title: 'Work 11' },
+    { id: 'og7ePoQ33QI', title: 'Work 12' },
+  ];
 
-    <!-- Main Content Area -->
-    <main class="flex-grow pt-16">
-        
-        <!-- Banner Section (Image auto-sizes to container width, height is free) -->
-        <div class="w-full fade-in">
-            <img src="https://lh3.googleusercontent.com/pw/AP1GczORCcQshjTSwlYWntTVfPCYyIVz3K2hqKzxDPu91jXoJ5z-TX0V5AHgRqmcFSe9EvGAUu4OKyE1-6Mpem1OgKe7hBTa2wEWG40ZTLh15iiWi87SnG-IMGbX2qeBXvIRv-YvEsHR8qH3mlvNZKmKfe6l=w1920-h759-s-no-gm?authuser=0" 
-                 alt="VDO ADTR Banner" 
-                 class="w-full h-auto block shadow-2xl">
-        </div>
+  // Glassmorphism and UI classes
+  const glassCard = "bg-white bg-opacity-5 backdrop-blur-xl border border-white border-opacity-10 rounded-3xl shadow-2xl";
+  const liquidButton = "bg-opacity-10 bg-white backdrop-blur-md border border-white border-opacity-20 hover:border-opacity-40 transition-all duration-300 rounded-full px-6 py-2 flex items-center gap-2 text-[#ececec]";
+  const accentText = "text-[#5ee765]";
+  const primaryText = "text-[#ececec]";
 
-        <!-- Intro Content Section -->
-        <section class="fade-in py-20 px-4 max-w-4xl mx-auto text-center">
-            <div class="mb-6 inline-block p-1 rounded-full bg-gradient-to-r from-blue-500 to-purple-600">
-                <div class="bg-gray-950 rounded-full px-4 py-1">
-                    <span class="text-sm font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent tracking-wider">VIDEO EDITOR & CREATIVE PROFESSIONAL</span>
-                </div>
-            </div>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-                Hi, I'm <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Rakibul Malithya</span>
+  return (
+    <div className="min-h-screen bg-[#0a0a0a] font-sans selection:bg-[#5ee765] selection:text-black">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 p-4">
+        <div className={`max-w-6xl mx-auto ${glassCard} py-4 px-8 flex justify-between items-center`}>
+          <div className={`text-xl font-bold tracking-tighter ${accentText}`}>
+            RAKIBUL <span className={primaryText}>MALITHYA</span>
+          </div>
+          <div className="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest text-[#ececec]">
+            <a href="#about" className="hover:text-[#5ee765] transition-colors">About</a>
+            <a href="#portfolio" className="hover:text-[#5ee765] transition-colors">Portfolio</a>
+            <a href="#experience" className="hover:text-[#5ee765] transition-colors">Experience</a>
+            <a href="#contact" className="hover:text-[#5ee765] transition-colors">Contact</a>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-4">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className={`${accentText} font-medium mb-4 uppercase tracking-widest text-sm`}>Video Editor & Creative Professional</h2>
+            <h1 className={`text-5xl md:text-7xl font-bold ${primaryText} mb-6 leading-tight`}>
+              Crafting Stories <br /> Through <span className={accentText}>Motion.</span>
             </h1>
-            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Crafting compelling visual stories through editing, motion graphics, and sound design. Let's bring your vision to life.
+            <p className="text-gray-400 text-lg mb-8 max-w-md">
+              High-end video editing, motion graphics, and sound design. Bringing visions to life with professional precision and AI-enhanced workflows.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="project.html" class="px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all transform hover:scale-105 shadow-lg shadow-blue-600/25">
-                    View My Work
-                </a>
-                <a href="contact.html" class="px-8 py-3 rounded-full bg-gray-800 hover:bg-gray-700 text-white font-semibold transition-all border border-gray-700">
-                    Contact Me
-                </a>
+            <div className="flex gap-4">
+              <a href="#portfolio" className={`${liquidButton} bg-[#5ee765] text-black font-bold border-none`}>
+                View My Work
+              </a>
+              <a href="mailto:vdoadtr@gmail.com" className={liquidButton}>
+                Let's Talk
+              </a>
             </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 py-8 mt-auto">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-            <p class="text-gray-500 mb-2">&copy; 2025 VDO ADTR - Rakibul Malithya. All rights reserved.</p>
-            <div class="flex justify-center space-x-4">
-                <a href="#" class="text-gray-600 hover:text-white transition-colors">Instagram</a>
-                <a href="#" class="text-gray-600 hover:text-white transition-colors">LinkedIn</a>
-                <a href="#" class="text-gray-600 hover:text-white transition-colors">Facebook</a>
-            </div>
+          </div>
+          <div className={`${glassCard} p-4 aspect-[4/5] relative overflow-hidden group`}>
+             <div className="absolute inset-0 bg-gradient-to-tr from-[#5ee76522] to-transparent pointer-events-none" />
+             <div className="flex flex-col h-full justify-center items-center text-center p-8">
+               <Camera size={64} className={`${accentText} mb-6 opacity-50`} />
+               <p className={`${primaryText} text-xl italic`}>"Every frame tells a story, every cut defines the rhythm."</p>
+             </div>
+          </div>
         </div>
-    </footer>
+      </section>
 
-</body>
-</html>
+      {/* Portfolio Section */}
+      <section id="portfolio" className="py-20 px-4 bg-[#0f0f0f]">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+            <div>
+              <h2 className={`text-4xl font-bold ${primaryText} mb-2`}>Portfolio</h2>
+              <div className={`h-1 w-20 bg-[#5ee765]`} />
+            </div>
+            <p className="text-gray-500 max-w-sm">A collection of my recent creative works and short-form edits with auto-play enabled.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {videos.map((vid) => (
+              <div key={vid.id} className={`${glassCard} overflow-hidden group hover:scale-[1.02] transition-transform duration-500`}>
+                <div className="aspect-[4/5] w-full relative">
+                  {/* Embedded YouTube shorts with Autoplay and Mute (required for autoplay) */}
+                  <iframe 
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${vid.id}?autoplay=1&mute=1&loop=1&playlist=${vid.id}&modestbranding=1&rel=0`}
+                    title={vid.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <div className="p-4 flex justify-between items-center bg-black bg-opacity-20 backdrop-blur-md">
+                  <span className={`${primaryText} font-medium`}>{vid.title}</span>
+                  <Youtube size={18} className={accentText} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About & Technical Skills */}
+      <section id="about" className="py-20 px-4">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+          <div className={glassCard + " p-8"}>
+            <div className="flex items-center gap-3 mb-6">
+              <User className={accentText} />
+              <h3 className={`text-2xl font-bold ${primaryText}`}>About Me</h3>
+            </div>
+            <p className="text-gray-400 leading-relaxed mb-6">
+              I am a highly skilled video editor with a passion for storytelling and visual creativity. My expertise spans various areas including crafting compelling short films, dynamic motion graphics, and mastering sound design and color grading.
+            </p>
+            <p className="text-gray-400 leading-relaxed">
+              Deep understanding of camera fundamentals: Exposure, Shutter Speed, ISO, and Focal Length. I approach every project with a comprehensive creative vision.
+            </p>
+            
+            <div className="mt-8 grid grid-cols-2 gap-4">
+               <div className="p-4 rounded-2xl bg-white bg-opacity-5">
+                 <h4 className={accentText + " font-bold mb-1"}>100%</h4>
+                 <p className="text-xs text-gray-500 uppercase">Commitment</p>
+               </div>
+               <div className="p-4 rounded-2xl bg-white bg-opacity-5">
+                 <h4 className={accentText + " font-bold mb-1"}>Pro Level</h4>
+                 <p className="text-xs text-gray-500 uppercase">Visuals</p>
+               </div>
+            </div>
+          </div>
+
+          <div className={glassCard + " p-8"}>
+            <div className="flex items-center gap-3 mb-6">
+              <Code className={accentText} />
+              <h3 className={`text-2xl font-bold ${primaryText}`}>Technical Arsenal</h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {['Premiere Pro', 'After Effects', 'Photoshop', 'Pixelmator Pro', 'Adobe Audition', 'Color Grading', 'Sound Design', 'Motion Graphics', 'AI Content Gen', 'Scripting'].map(skill => (
+                <span key={skill} className="px-4 py-2 rounded-full bg-white bg-opacity-5 border border-white border-opacity-10 text-sm text-[#ececec]">
+                  {skill}
+                </span>
+              ))}
+            </div>
+            <div className="mt-8 border-t border-white border-opacity-10 pt-6">
+              <h4 className={`${primaryText} font-bold mb-4 flex items-center gap-2`}>
+                <Smartphone size={18} className={accentText} /> AI Workflow Integration
+              </h4>
+              <p className="text-gray-400 text-sm italic">
+                "Every problem solved with AI. Expression code and scripts for After Effects drastically help my workflow."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="py-20 px-4 bg-[#0f0f0f]">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12">
+            <h2 className={`text-4xl font-bold ${primaryText} mb-2`}>Work History</h2>
+            <div className={`h-1 w-20 bg-[#5ee765]`} />
+          </div>
+
+          <div className="space-y-6">
+            {[
+              { company: 'Globyad Agency', role: 'Video Editor', date: 'Jan 2026 – Present', desc: 'Promotional videos and social media ad creatives using AE & Pixelmator Pro.' },
+              { company: 'Our Voice', role: 'Video Editor', date: 'Apr 2025 – Dec 2025', desc: 'Managed internal/external content workflows and post-production.' },
+              { company: 'TARA NEWS', role: 'Video Editor', date: 'Jun 2024 – Nov 2024', desc: 'Daily news editing and broadcast-ready formatting.' },
+              { company: 'TDN Bangla', role: 'Video Editor', date: 'Nov 2022 – Apr 2024', desc: 'News reports, interviews, and documentary-style videos.' },
+            ].map((exp, idx) => (
+              <div key={idx} className={`${glassCard} p-8 flex flex-col md:flex-row md:items-center justify-between group hover:bg-white hover:bg-opacity-10 transition-all duration-300`}>
+                <div>
+                  <h4 className={`${accentText} text-sm font-bold uppercase mb-1`}>{exp.date}</h4>
+                  <h3 className={`${primaryText} text-xl font-bold`}>{exp.role}</h3>
+                  <p className="text-gray-500 font-medium">{exp.company}</p>
+                </div>
+                <p className="text-gray-400 md:max-w-md mt-4 md:mt-0 leading-relaxed">{exp.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-4">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+           <div className={glassCard + " p-8"}>
+              <div className="flex items-center gap-3 mb-8">
+                <GraduationCap className={accentText} />
+                <h3 className={`text-2xl font-bold ${primaryText}`}>Education</h3>
+              </div>
+              <div className="space-y-8">
+                <div>
+                  <h4 className={`${primaryText} font-bold text-lg`}>M.A. in Mass Communication</h4>
+                  <p className="text-sm text-gray-500">Harichand Guruchand University | 2025 - Present</p>
+                </div>
+                <div className="h-px bg-white bg-opacity-10 w-full" />
+                <div>
+                  <h4 className={`${primaryText} font-bold text-lg`}>B.Voc in Broadcast Journalism</h4>
+                  <p className="text-sm text-gray-500">Derozio Memorial College | 2022 - 2025</p>
+                </div>
+              </div>
+           </div>
+
+           <div className={glassCard + " p-8 relative overflow-hidden"}>
+              <div className="absolute top-0 right-0 p-8 opacity-10">
+                <Mail size={120} className={accentText} />
+              </div>
+              <h3 className={`text-2xl font-bold ${primaryText} mb-8`}>Get In Touch</h3>
+              <div className="space-y-6 relative z-10">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-full bg-white bg-opacity-5 text-[#5ee765]">
+                    <Phone size={20} />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase font-bold">Call Me</p>
+                    <p className={primaryText}>+91 9531661985</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-full bg-white bg-opacity-5 text-[#5ee765]">
+                    <Mail size={20} />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase font-bold">Email</p>
+                    <p className={primaryText}>vdoadtr@gmail.com</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-full bg-white bg-opacity-5 text-[#5ee765]">
+                    <MapPin size={20} />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase font-bold">Address</p>
+                    <p className={primaryText}>Rajarhat New Town, Kolkata 700135</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-12">
+                <button className={liquidButton + " w-full justify-center py-4 bg-[#5ee765] text-black font-bold border-none hover:shadow-[0_0_20px_#5ee76544]"}>
+                  Connect Now
+                </button>
+              </div>
+           </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-10 border-t border-white border-opacity-5 px-4 text-center">
+        <p className="text-gray-600 text-sm">
+          © {new Date().getFullYear()} RAKIBUL MALITHYA. Built for Impact.
+        </p>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
